@@ -5,8 +5,6 @@ create table code_class(
 	reg_date TIMESTAMP NOT NULL DEFAULT now(),
 	upd_date TIMESTAMP DEFAULT now()
 );
-drop table code_class;
-describe code_class;
 
 
 create table code_detail(
@@ -20,8 +18,6 @@ create table code_detail(
     FOREIGN KEY(class_code) REFERENCES code_class(class_code)
 );
 
-drop table code_detail;
-describe code_detail;
 
 create table item(
 	item_id  INT(10) AUTO_INCREMENT,
@@ -33,7 +29,6 @@ create table item(
 	PRIMARY KEY(item_id),
     FOREIGN KEY(code_value) REFERENCES code_detail(code_value)
 );
-describe code_detail;
 
 create table user_item(
 	user_item_no INT(10) AUTO_INCREMENT, 
@@ -44,7 +39,7 @@ create table user_item(
     PRIMARY KEY(user_item_no),
     FOREIGN KEY(item_id) REFERENCES item(item_id)
 );
-describe user_item;
+
 
 
 create table member(
@@ -59,7 +54,6 @@ create table member(
     enabled CHAR(1) DEFAULT 1,
     PRIMARY KEY(user_no)
 );
-describe member;
 
 
 create table login_log(
@@ -69,13 +63,13 @@ create table login_log(
     PRIMARY KEY(user_no),
     FOREIGN KEY(user_no) REFERENCES member(user_no)
 );
-describe login_log;
+
 
 create table member_auth(
 	user_no INT(10) PRIMARY KEY AUTO_INCREMENT,
     auth VARCHAR(50) NOT NULL
 );
-describe member_auth;
+
 
 create table charge_coin_hist(
 	history_no INT(10) PRIMARY KEY AUTO_INCREMENT,
@@ -83,9 +77,8 @@ create table charge_coin_hist(
     amount INT(10) NOT NULL,
     reg_date TIMESTAMP NOT NULL DEFAULT now(),
     FOREIGN KEY(user_no) REFERENCES member(user_no)
-  
 );
-describe charge_coin_hist;
+
 
 create table board(
 	board_no INT(10) PRIMARY KEY AUTO_INCREMENT,
@@ -95,7 +88,7 @@ create table board(
     reg_date TIMESTAMP NOT NULL DEFAULT now(),
     Foreign key (user_no) REFERENCES member(user_no)
 );
-describe board;
+
 
 create table comment(
 	idx INT(10) PRIMARY KEY AUTO_INCREMENT,
@@ -106,8 +99,8 @@ create table comment(
     FOREIGN KEY (user_no) REFERENCES member(user_no),
     FOREIGN KEY (board_no) REFERENCES board(board_no)
 );
-drop table comment;
-describe comment;
+
+
 
 create table pds(
 		item_id INT(10) AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -115,7 +108,7 @@ create table pds(
         view_cnt INT(10) DEFAULT 0,
         description VARCHAR(50)
 );
-describe pds;
+
 
 create table pds_attach(
 	fullName VARCHAR(150) NOT NULL PRIMARY KEY,
@@ -124,7 +117,7 @@ create table pds_attach(
     regdate TIMESTAMP DEFAULT now(),
     FOREIGN KEY (item_id) REFERENCES item(item_id)
 );
-describe pds_attach;
+
 
 create table notice(
 	notice_no INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -132,7 +125,20 @@ create table notice(
     content TEXT,
     reg_date TIMESTAMP NOT NULL DEFAULT now()
 );
+
+
+
+describe code_class;
+describe code_detail;
+describe code_detail;
+describe user_item;
+describe member;
+describe login_log;
+describe member_auth;
+describe charge_coin_hist;
+describe board;
+describe comment;
+describe pds;
+describe pds_attach;
 describe notice;
-
-
 

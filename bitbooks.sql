@@ -7,13 +7,13 @@
  upd_date TIMESTAMP DEFAULT now(),
  primary key(class_code)
  );
- 
+ --
  -- 코드 테이블
  CREATE TABLE code_detail(
  class_code CHAR(3)NOT NULL,
  code_value VARCHAR(3) NOT NULL,
  code_name VARCHAR(30) NOT NULL,
- sort_seq INT NOT NULL,
+ sort_seq INT(10) NOT NULL,
  use_yn CHAR(1) NOT NULL DEFAULT'Y',
  reg_date TIMESTAMP NOT NULL DEFAULT now(),
  upd_date TIMESTAMP DEFAULT now(),
@@ -22,7 +22,7 @@
  
  -- 회원 테이블
  CREATE TABLE member(
- user_no INT(5) AUTO_INCREMENT,
+ user_no INT(10) AUTO_INCREMENT,
  user_id VARCHAR(50) NOT NULL,
  user_pw VARCHAR(100) NOT NULL,
  user_name VARCHAR(100) NOT NULL,
@@ -36,7 +36,7 @@
  
  -- 권한 테이블
  CREATE TABLE member_auth(
- user_no INT(5)NOT NULL,
+ user_no INT(10)NOT NULL,
  auth VARCHAR(50)NOT NULL
  );
  
@@ -66,6 +66,7 @@
  -- 상품 테이블
  CREATE TABLE item(
  item_id INT(10) AUTO_INCREMENT,
+ code_value VARCHAR(3) NOT NULL,
  item_name VARCHAR(20),
  price INT(10),
  description VARCHAR(50),

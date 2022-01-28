@@ -1,28 +1,24 @@
--- 코드 그룹 테이블
- CREATE TABLE code_class(
- class_code CHAR(3) NOT NULL,
- class_name VARCHAR(30) NOT NULL,
- use_yn CHAR(1)NOT NULL DEFAULT'Y',
- reg_date TIMESTAMP NOT NULL DEFAULT now(),
- upd_date TIMESTAMP DEFAULT now(),
- primary key(class_code)
- );
- --
- -- 코드 테이블
- CREATE TABLE code_detail(
- class_code CHAR(3)NOT NULL,
- code_value VARCHAR(3) NOT NULL,
- code_name VARCHAR(30) NOT NULL,
- sort_seq INT(10) NOT NULL,
- use_yn CHAR(1) NOT NULL DEFAULT'Y',
- reg_date TIMESTAMP NOT NULL DEFAULT now(),
- upd_date TIMESTAMP DEFAULT now(),
- primary key(class_code,code_value)
- );
- 
+create table code_class(
+	class_code char(3) NOT NULL PRIMARY KEY,
+	class_name varchar(30)NOT NULL,
+	use_yn char(1)NOT NULL DEFAULT 'Y',
+	reg_date TIMESTAMP NOT NULL DEFAULT now(),
+	upd_date TIMESTAMP DEFAULT now()
+);
+create table code_detail(
+	code_value varchar(3) PRIMARY KEY,
+    class_code char(3)NOT NULL,
+    class_name varchar(30)NOT NULL,
+    sort_seq int NOT NULL,
+    use_yn char(1) NOT NULL DEFAULT 'Y',
+    reg_date TIMESTAMP NOT NULL DEFAULT now(),
+    upd_date TIMESTAMP DEFAULT now(),
+    FOREIGN KEY(class_code) REFERENCES code_class(class_code)
+);
+
  -- 회원 테이블
  CREATE TABLE member(
- user_no INT(10) AUTO_INCREMENT,
+ user_no INT(10) AUTO_INCREMENT ,
  user_id VARCHAR(50) NOT NULL,
  user_pw VARCHAR(100) NOT NULL,
  user_name VARCHAR(100) NOT NULL,
@@ -37,7 +33,8 @@
  -- 권한 테이블
  CREATE TABLE member_auth(
  user_no INT(10)NOT NULL,
- auth VARCHAR(50)NOT NULL
+ auth VARCHAR(50)NOT NULL,
+  FOREIGN KEY(user_no) REFERENCES member(user_no)
  );
  
  
@@ -46,14 +43,15 @@
  
  -- 회원 게시판 테이블
  CREATE TABLE board(
- board_no INT NOT NULL AUTO_INCREMENT,
- user_no INT(20) NOT NULL,
+ board_no INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+ user_no INT NOT NULL,
  title VARCHAR(200)NOT NULL,
  content TEXT,
  reg_date TIMESTAMP NOT NULL DEFAULT now(),
- PRIMARY KEY (board_no)
+ FOREIGN KEY(user_no)REFERENCES member(user_no)
  );
  
+
  -- 공지사항 테이블
  CREATE TABLE notice(
  notice_no INT NOT NULL AUTO_INCREMENT,
@@ -65,13 +63,13 @@
  
  -- 상품 테이블
  CREATE TABLE item(
- item_id INT(10) AUTO_INCREMENT,
+ item_id INT AUTO_INCREMENT PRIMARY KEY,
  code_value VARCHAR(3) NOT NULL,
  item_name VARCHAR(20),
- price INT(10),
+ price INT,
  description VARCHAR(50),
  picture_url VARCHAR(200),
- PRIMARY KEY(item_id)
+ FOREIGN KEY(code_value)REFERENCES code_detail(code_value)
  );
  
  -- 자료실 테이블
@@ -85,11 +83,11 @@
  
  -- 파일 첨부 테이블
  CREATE TABLE pds_attach(
- fullName VARCHAR(150) NOT NULL,
- item_id INT(10) NOT NULL,
- down_cnt INT(10) DEFAULT 0,
+ fullName VARCHAR(150) NOT NULL PRIMARY KEY,
+ item_id INT NOT NULL,
+ down_cnt INT DEFAULT 0,
  regdate TIMESTAMP DEFAULT now(),
- PRIMARY KEY(fullName)
+ FOREIGN KEY(item_id)REFERENCES pds(item_id)
  );
  
  

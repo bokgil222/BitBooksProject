@@ -19,15 +19,15 @@ create table code_detail(
     FOREIGN KEY(class_code) REFERENCES code_class(class_code)
 );
 
--- 구매 상품 테이블
+-- 상품 테이블
 create table user_item(
 	user_item_no INT(10) AUTO_INCREMENT, 
     item_id INT(10) NOT NULL,
-    user_no INT(1) NOT NULL,
+    user_no INT(10) NOT NULL,
     reg_date TIMESTAMP DEFAULT now(),
     amount INT(10),
     PRIMARY KEY(user_item_no),
-    FOREIGN KEY(item_id) REFERENCES item(item_id)
+    FOREIGN KEY(item_id,user_no) REFERENCES item(item_id)
 );
 
 

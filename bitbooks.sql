@@ -19,27 +19,27 @@ create table code_detail(
     FOREIGN KEY(class_code) REFERENCES code_class(class_code)
 );
 
--- 상품 테이블
+-- 사용자 상품 테이블
 create table user_item(
-	user_item_no INT(10) AUTO_INCREMENT, 
-    item_id INT(10) NOT NULL,
-    user_no INT(10) NOT NULL,
+	user_item_no INT AUTO_INCREMENT PRIMARY KEY, 
+    item_id INT NOT NULL,
+    user_no INT NOT NULL,
     reg_date TIMESTAMP DEFAULT now(),
-    amount INT(10),
-    PRIMARY KEY(user_item_no),
-    FOREIGN KEY(item_id,user_no) REFERENCES item(item_id)
+    amount INT,
+    FOREIGN KEY(item_id) REFERENCES item(item_id),
+    FOREIGN KEY(user_no) REFERENCES member(user_no)
 );
 
 
 
  -- 회원 테이블
  CREATE TABLE member(
- user_no INT(10) AUTO_INCREMENT ,
+ user_no INT AUTO_INCREMENT ,
  user_id VARCHAR(50) NOT NULL,
  user_pw VARCHAR(100) NOT NULL,
  user_name VARCHAR(100) NOT NULL,
  job VARCHAR(3) NOT NULL DEFAULT '00',
- coin INT(10) DEFAULT 0,
+ coin INT DEFAULT 0,
  reg_date TIMESTAMP NOT NULL DEFAULT  now(),
  upd_date TIMESTAMP DEFAULT now(),
  enabled CHAR(1) DEFAULT'1',
@@ -48,14 +48,14 @@ create table user_item(
  
  -- 권한 테이블
  CREATE TABLE member_auth(
- user_no INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ user_no INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
  auth VARCHAR(50) NOT NULL,
   FOREIGN KEY(user_no) REFERENCES member(user_no)
  );
  
  -- 로그인 기록
  create table login_log(
-	user_no INT(10),
+	user_no INT,
     remote_addr VARCHAR(50) NOT NULL,
     reg_date TIMESTAMP NOT NULL DEFAULT now(),
     PRIMARY KEY(user_no),
@@ -64,9 +64,9 @@ create table user_item(
 
 -- 충전 내역 테이블
 create table charge_coin_hist(
-	history_no INT(10) PRIMARY KEY AUTO_INCREMENT,
-    user_no INT(10) NOT NULL,
-    amount INT(10) NOT NULL,
+	history_no INT PRIMARY KEY AUTO_INCREMENT,
+    user_no INT NOT NULL,
+    amount INT NOT NULL,
     reg_date TIMESTAMP NOT NULL DEFAULT now(),
     FOREIGN KEY(user_no) REFERENCES member(user_no)
 );
@@ -92,12 +92,12 @@ create table charge_coin_hist(
  reg_date TIMESTAMP NOT NULL DEFAULT now(),
  PRIMARY KEY(notice_no)
  );
- 
+
  -- 댓글 테이블
  create table comment(
-	idx INT(10) PRIMARY KEY AUTO_INCREMENT,
-    user_no INT(10), 
-    board_no INT(10),
+	idx INT PRIMARY KEY AUTO_INCREMENT,
+    user_no INT, 
+    board_no INT,
     comment TEXT,
     reg_date TIMESTAMP NOT NULL DEFAULT now(),
     FOREIGN KEY (user_no) REFERENCES member(user_no),
@@ -114,12 +114,12 @@ create table charge_coin_hist(
  picture_url VARCHAR(200),
  FOREIGN KEY(code_value)REFERENCES code_detail(code_value)
  );
- 
+  
  -- 자료실 테이블
  CREATE TABLE pds(
- item_id INT(10)AUTO_INCREMENT,
+ item_id INT AUTO_INCREMENT,
  item_name VARCHAR(20),
- view_cnt INT(10) DEFAULT 0,
+ view_cnt INT DEFAULT 0,
  descirption VARCHAR(50),
  PRIMARY KEY(item_id)
  );
@@ -132,5 +132,3 @@ create table charge_coin_hist(
  regdate TIMESTAMP DEFAULT now(),
  FOREIGN KEY(item_id)REFERENCES pds(item_id)
  );
- 
-

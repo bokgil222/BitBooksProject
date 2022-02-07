@@ -1,0 +1,35 @@
+/* 제목색상*/
+.navbar {
+    background-color: rgb(31 140 230);
+}
+.bg-light navbar-brand{
+    color:rgb(31 140 230);
+}
+
+.nav-login{
+    color: white;
+}
+.nav-user{
+    color: white;
+}
+
+.navbar-light .navbar-brand {
+    color: white;
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.9rem;
+    font-weight: bolder;
+    line-height: inherit;
+    white-space: nowrap;
+  
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    font-size: 1.25rem;
+    text-align: left;
+    
+    color: white;
+}

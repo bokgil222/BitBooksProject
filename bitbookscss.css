@@ -7,10 +7,26 @@
 }
 
 .nav-login{
+
     color: white;
+    
 }
 .nav-user{
+
     color: white;
+
+}
+
+.nav-item{
+    margin : 0 20px;
+}
+
+li{
+    list-style-type: none;
+}
+
+.nav-login .nav-user{
+    margin: 0 40px;
 }
 
 .navbar-light .navbar-brand {
